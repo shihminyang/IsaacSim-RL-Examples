@@ -18,7 +18,7 @@ class ApproachTargetTask(BaseTask):
         # Target (Visual)
         self.target_radius = 5.
         self.target_color = np.array([.8, .1, .1])
-        self.approach_color = np.array([.1, .1, .8])
+        self.approach_color = np.array([.1, .8, .1])
 
         # Worksapce, target only appear in the workspace (cm)
         self.workspace = {
@@ -87,9 +87,6 @@ class ApproachTargetTask(BaseTask):
 
     def pre_step(self, control_index, simulation_time):
         """ [_Rewrite_] Called before each physics step. """
-
-        self.target.get_applied_visual_material().set_color(
-            self.approach_color)
         return
 
     def _init_light(self, scene):
