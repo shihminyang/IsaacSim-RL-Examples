@@ -1,3 +1,4 @@
+# from turtle import distance
 import numpy as np
 from omni.isaac.core.objects import VisualSphere
 from omni.isaac.core.tasks import BaseTask
@@ -24,6 +25,8 @@ class ApproachTargetTask(BaseTask):
         self.workspace = {
             'low': np.array([10, -30, 10]) + self.target_radius,
             'high': np.array([70, 30, 70]) - self.target_radius}
+        # The completed condition (distance between end-effector and target)
+        self.complete_thr = 5
 
         # Robot
         self.robot_position = np.array([0, 0, 0])
@@ -87,6 +90,13 @@ class ApproachTargetTask(BaseTask):
 
     def pre_step(self, control_index, simulation_time):
         """ [_Rewrite_] Called before each physics step. """
+
+        observations = self.get_observations()
+        distance = np.linalg.norm(
+            observations['target_position'] - observations['current_position'])
+        if distance < self.complete_thr:
+            self.target.get_applied_visual_material().set_color(
+                self.approach_color)
         return
 
     def _init_light(self, scene):
