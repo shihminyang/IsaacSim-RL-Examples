@@ -19,7 +19,7 @@ class BasicEnv(gym.Env):
         self.num_complete = 0
 
         # Number of steps for take the predicted action
-        self.step_len = 101
+        self.step_len = 5
 
         # The number of maximum step for one episode
         self.max_step_episode = 200

@@ -17,6 +17,8 @@ if __name__ == '__main__':
                         help="Experiment name")
     parser.add_argument("-H", "--headless", action="store_true",
                         help="Run in headless mode (no GUI)")
+    parser.add_argument("-V", "--visualize", action="store_true",
+                        help="Run in visualize mode (render in each step)")
     parser.add_argument("-C", "--check_env", action="store_true",
                         help="Check environment")
     parser.add_argument("--root", default="./IsaacSim-RL-Examples")
@@ -39,7 +41,9 @@ if __name__ == '__main__':
     if config['rl_env'] == 'ApproachTargetEnv':
         rl_env = ApproachTargetEnv("ApproachTargetEnv",
                                    action_type=config['action_type'],
-                                   headless=args.headless, seed=1657)
+                                   headless=args.headless,
+                                   visualize=args.visualize,
+                                   seed=1657)
     else:
         print(f"Environment {config['rl_env']} not support!")
         exit()
@@ -84,7 +88,6 @@ if __name__ == '__main__':
     log_callback = TrainLogCallback(
         config['log_iter'],
         result_dir,
-        exp_name,
         num_timesteps=num_timesteps)
     callback_list = [log_callback, checkpoint_callback]
 
