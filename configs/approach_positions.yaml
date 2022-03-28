@@ -1,0 +1,24 @@
+# Control robot to approach the target position (joint positions)
+exp_name: approach_positions    # Experiment name
+
+resume: False                   # Wether resume training states
+num_envs: 1                     # Number of environments for parallel training
+
+# Environment
+rl_env: ApproachTargetEnv       # Simulation and reinforcement environment
+action_type: positions
+
+# Train
+learning_rate: 0.001            # Learning rate
+total_timesteps: 60000          # Number of total steps for model training
+batch_size: 256                 # Batch size
+save_model_iter: 5000           # How often do you want to save model
+log_iter: 1000                  # How often do you want to record training log
+
+# Model
+net_arch: [512, 512, 512]       # Network architecture
+model_weight:                   # Model weight for resume (ckp_180000_steps.zip)
+
+# Path and directory
+result_dir:                     # Directory for saving training results and logs
+    ./IsaacSim-RL-Examples/results
